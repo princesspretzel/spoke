@@ -1,10 +1,12 @@
-import json, urllib, urllib2, threading
+import json
+import urllib
+import urllib2
+import threading
 
 '''
-Makes sure API calls are happening in the background to prevent lag
 Uses GitHub API to grab pull requests
 '''
-class GitHubApi(threading.Thread):
+class GitHubApi():
     def __init__(self, base_uri="https://api.github.com/repos/", token=None, timeout, username):
         self.base_uri = base_uri
         self.token = token
