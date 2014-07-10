@@ -7,10 +7,9 @@ import threading
 Uses GitHub API to grab pull requests
 '''
 class GitHubApi():
-    def __init__(self, base_uri="https://api.github.com/repos/", token=None, timeout, username):
+    def __init__(self, base_uri="https://api.github.com/repos/", token=None, username):
         self.base_uri = base_uri
         self.token = token
-        self.timeout = timeout
         self.username = username
         threading.Thread.__init__(self)
 
