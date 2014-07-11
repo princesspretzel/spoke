@@ -2,7 +2,7 @@
 
 ----------------------------------------------------------------------------------------
 
-Spoke is a Sublime plugin for GitHub that open all the files in a pull request.
+Spoke is a Sublime plugin for GitHub that opens all the files in a pull request.
 
 Press CTRL + SHIFT + R in Sublime to open a window at the bottom of the screen.
 
