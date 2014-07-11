@@ -29,11 +29,11 @@ class Spoke(sublime_plugin.WindowCommand):
 
     def on_username(self, name):
         self.name = name
-        self.view.window().show_input_panel("Password:", '', self.on_password, None, None)
+        self.window.show_input_panel("Password:", '', self.on_password, None, None)
 
     def on_password(self, pw):
         self.pw = pw
-        self.view.window().show_input_panel("Github Pull Request:", '', self.on_done, None, None)
+        self.window.show_input_panel("Github Pull Request:", '', self.on_done, None, None)
     
     def on_done(self, pull_request_id):
         github = GitHubApi(self.name, self.pw, self.username, self.repo, self)
@@ -69,15 +69,12 @@ class GitHubApi():
         print self.token
 
         self.base_uri = base_uri
-        # self.token = token
         self.username = username
         self.repo = repo
-        self.pull_request_id = pull_request_id
-        threading.Thread.__init__(self)
 
-    def get_pull_request(self):
+    def get_pull_request(self, pull_request_id):
         files = []
-        url = self.base_uri + self.username + "/" + self.repo + "/pulls/" + pull_request + "/files?access_token=" + self.token
+        url = self.base_uri + self.username + "/" + self.repo + "/pulls/" + pull_request_id + "/files?access_token=" + self.token
         print url
         data = json.load(urllib2.urlopen(url))
         for f in data:
