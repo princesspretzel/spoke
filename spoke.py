@@ -9,8 +9,8 @@ import threading
 import urllib
 import urllib2
 
-class Spoke(sublime_plugin.TextCommand):
-    def run(self, edit):
+class Spoke(sublime_plugin.WindowCommand):
+    def run(self):
         if self.run_command(['git', 'rev-parse', '--is-inside-work-tree']).strip() == 'true':
             self.remote = 'root'
             remote_url = self.run_command(['git', 'config', '--get', 'remote.'+self.remote+'.url']).strip()
@@ -21,7 +21,7 @@ class Spoke(sublime_plugin.TextCommand):
             match = re.search('(\w*)[/:]([\w-]*).git\Z', remote_url)
             self.username = match.group(1)
             self.repo = match.group(2)
-            self.view.window().show_input_panel("Github Pull Request:", '', self.on_done, None, None)
+            self.window.show_input_panel("Github Pull Request:", '', self.on_done, None, None)
         else:
             sublime.error_message('Not in a git directory')
     
