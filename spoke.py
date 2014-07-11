@@ -2,7 +2,6 @@ import subprocess
 import encodings
 import re
 import sublime, sublime_plugin, os
-import github
 
 import json
 import urllib
