@@ -1,12 +1,13 @@
-import subprocess
 import encodings
-import re
-import sublime, sublime_plugin, os
-
 import json
+import os
+import re
+import sublime
+import sublime_plugin
+import subprocess
+import threading
 import urllib
 import urllib2
-import re
 
 class Spoke(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -48,13 +49,15 @@ class Spoke(sublime_plugin.TextCommand):
 
 '''
 Uses GitHub API to grab pull requests
+Extends threading to run API calls in the background & prevent lag
 '''
-class GitHubApi():
+class GitHubApi(threading.Thread):
     def __init__(self, username, repo, base_uri="https://api.github.com/repos/", token=None):
         self.base_uri = base_uri
         self.token = token
         self.username = username
         self.repo = repo
+        threading.Thread.__init__(self)
 
     def get_pull_request(self, pull_request):
         files = []
@@ -64,3 +67,6 @@ class GitHubApi():
         for f in data:
             files.append(f['filename'])
         return files
+
+    thread = Thread(target=get_pull_request, args=(pull_request))
+    thread.start()
