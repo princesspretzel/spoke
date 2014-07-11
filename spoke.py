@@ -68,5 +68,5 @@ class GitHubApi(threading.Thread):
             files.append(f['filename'])
         return files
 
-    thread = GitHubApi(target=get_pull_request, args=(pull_request))
-    thread.start()
+thread = GitHubApi(target=get_pull_request, args=(pull_request))
+thread.start()
